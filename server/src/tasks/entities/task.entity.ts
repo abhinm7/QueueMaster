@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from "src/users/entities/user.entities";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 export enum TaskStatus {
     PENDING = 'PENDING',
@@ -24,6 +25,13 @@ export class Task {
 
     @Column({ type: 'text', nullable: true })
     result!: string;
+
+    @ManyToOne(() => User, (user) => user.tasks, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'userId' })
+    user!: User;
+
+    @Column()
+    userId!: string;
 
     @CreateDateColumn()
     createdAt!: Date;

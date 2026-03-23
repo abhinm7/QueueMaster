@@ -1,11 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task, TaskStatus } from './entities/task.entity';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { stat } from 'fs';
 
 @Injectable()
 export class TasksService {
@@ -29,6 +28,13 @@ export class TasksService {
         // acknowlegdge to client
         return { taskId: savedTask.id, status: savedTask.status };
 
+    }
+
+    async getTaskStatus(id: string) {
+        const task = await this.taskRepository.findOne({ where: { id } });
+        if (!task) throw new NotFoundException('Task not found');
+
+        return { taskId: task.id, status: task.status, result: task.result };
     }
 
 }
