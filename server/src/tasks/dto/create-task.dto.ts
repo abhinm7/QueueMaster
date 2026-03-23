@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsObject } from "class-validator";
 
-export class CreateTable{
+export class CreateTaskDto{
     @IsObject()
     @IsNotEmpty()
     payload!: Record<string, any>;
