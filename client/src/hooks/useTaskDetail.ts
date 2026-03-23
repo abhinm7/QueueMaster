@@ -27,12 +27,6 @@ export const useTaskDetail = (taskId: string | null) => {
                 const { data } = await apiClient.get(`/tasks/${taskId}`);
                 setTask(data);
 
-                if (data.status === 'COMPLETED' && task?.status !== 'COMPLETED') {
-                    toast.success(`Task ${taskId.substring(0, 8)} completed!`);
-                } else if (data.status === 'FAILED' && task?.status !== 'FAILED') {
-                    toast.error(`Task ${taskId.substring(0, 8)} failed.`);
-                }
-
                 if (data.status == 'COMPLETED' || data.status === 'FAILED') {
                     clearInterval(pollInterval);
                 }
