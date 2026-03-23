@@ -5,6 +5,7 @@ import { Task, TaskStatus } from './entities/task.entity';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { GetTasksFilterDto } from './dto/get-task-filter.dto';
 
 @Injectable()
 export class TasksService {
@@ -38,4 +39,30 @@ export class TasksService {
         return { taskId: task.id, status: task.status, result: task.result };
     }
 
+    async getUserTasks(userId: string, filterDto: GetTasksFilterDto) {
+        const { page = 1, limit = 10 } = filterDto;
+        const skip = (page - 1) * limit;
+
+        const [tasks, total] = await this.taskRepository.findAndCount({
+            where: { user: { id: userId } },
+            order: { createdAt: 'DESC' },
+            skip,
+            take: limit,
+        });
+
+        return {
+            data: tasks.map(t => ({
+                taskId: t.id,
+                status: t.status,
+                result: t.result,
+                createdAt: t.createdAt,
+            })),
+            meta: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit),
+            },
+        }
+    }
 }

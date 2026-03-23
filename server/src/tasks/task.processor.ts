@@ -32,7 +32,7 @@ export class TaskProcessor extends WorkerHost {
             await this.TaskRepository.save(task);
 
             // stimulate a heavy task
-            const executionTime = Math.floor(Math.random() * 4000) + 4000; // 4 to 8 seconds
+            const executionTime = Math.floor(Math.random() * 5000) + 3000; // 3 to 8 seconds
             await new Promise((resolve) => setTimeout(resolve, executionTime));
 
             // update status into completed
