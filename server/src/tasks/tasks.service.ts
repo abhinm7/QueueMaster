@@ -14,11 +14,12 @@ export class TasksService {
         @InjectQueue('task-queue')
         private readonly taskQueue: Queue) { }
 
-    async createTask(CreateTaskDto: CreateTaskDto) {
+    async createTask(CreateTaskDto: CreateTaskDto, userId: string) {
         // persist to postgres
         const task = this.taskRepository.create({
             payload: CreateTaskDto.payload,
             status: TaskStatus.PENDING,
+            user: { id: userId }
         });
         const savedTask = await this.taskRepository.save(task);
 
@@ -30,8 +31,8 @@ export class TasksService {
 
     }
 
-    async getTaskStatus(id: string) {
-        const task = await this.taskRepository.findOne({ where: { id } });
+    async getTaskStatus(id: string, userId: string) {
+        const task = await this.taskRepository.findOne({ where: { id, user: { id: userId } } });
         if (!task) throw new NotFoundException('Task not found');
 
         return { taskId: task.id, status: task.status, result: task.result };
