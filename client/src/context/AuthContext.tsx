@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useMemo, type ReactNode } from 'react';
+import { toast } from 'sonner';
 
 interface AuthContextType {
     token: string | null;
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
+        toast.info('Log out');
         setToken(null);
     };
 
