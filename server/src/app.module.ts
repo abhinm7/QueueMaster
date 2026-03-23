@@ -7,6 +7,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { config } from 'process';
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -44,7 +45,8 @@ import { UsersModule } from './users/users.module';
       }
     }),
     TasksModule,
-    UsersModule
+    UsersModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
