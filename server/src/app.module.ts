@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bullmq';
 import { config } from 'process';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { config } from 'process';
           }
         }
       }
-    })
+    }),
+    TasksModule
   ],
   controllers: [AppController],
   providers: [AppService],
