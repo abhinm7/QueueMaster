@@ -4,6 +4,7 @@ import { TasksService } from './tasks.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bullmq';
 import { Task } from './entities/task.entity';
+import { TaskProcessor } from './task.processor';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { Task } from './entities/task.entity';
       name: 'task-queue',
     }),
   ],
-  controllers: [TasksController],
-  providers: [TasksService]
+  controllers: [TasksController], 
+  providers: [TasksService, TaskProcessor],
 })
-export class TasksModule {}
+export class TasksModule { }
