@@ -42,4 +42,6 @@ export const useTask = (page = 1, limit = 10) => {
     useEffect(() => {
         fetchTasks();
     }, [fetchTasks])
+
+    return { tasks, meta, loading, error, refetch: fetchTasks };
 }
