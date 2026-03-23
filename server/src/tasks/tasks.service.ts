@@ -19,6 +19,7 @@ export class TasksService {
         // persist to postgres
         const task = this.taskRepository.create({
             payload: CreateTaskDto.payload,
+            type: CreateTaskDto.type,
             status: TaskStatus.PENDING,
             user: { id: userId }
         });
@@ -36,7 +37,7 @@ export class TasksService {
         const task = await this.taskRepository.findOne({ where: { id, user: { id: userId } } });
         if (!task) throw new NotFoundException('Task not found');
 
-        return { taskId: task.id, status: task.status, result: task.result };
+        return { taskId: task.id, status: task.status, result: task.result, type: task.type };
     }
 
     async getUserTasks(userId: string, filterDto: GetTasksFilterDto) {
@@ -54,6 +55,7 @@ export class TasksService {
             data: tasks.map(t => ({
                 taskId: t.id,
                 status: t.status,
+                type: t.type,
                 result: t.result,
                 createdAt: t.createdAt,
             })),

@@ -36,7 +36,7 @@ export class TaskProcessor extends WorkerHost {
             await new Promise((resolve) => setTimeout(resolve, executionTime));
 
             // update status into completed
-            task.status = TaskStatus.COMPELTED;
+            task.status = TaskStatus.COMPLETED;
             task.result = `Successfully processed payload in ${executionTime}ms`;
             await this.TaskRepository.save(task);
 

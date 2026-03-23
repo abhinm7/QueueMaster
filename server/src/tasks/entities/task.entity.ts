@@ -4,7 +4,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGenerat
 export enum TaskStatus {
     PENDING = 'PENDING',
     PROCESSING = 'PROCESSING',
-    COMPELTED = 'COMPLETED',
+    COMPLETED = 'COMPLETED',
     FAILED = 'FAILED'
 }
 
@@ -19,6 +19,9 @@ export class Task {
         default: TaskStatus.PENDING
     })
     status!: TaskStatus;
+
+    @Column()
+    type!: string;
 
     @Column({ type: 'jsonb', nullable: true })
     payload: any;
