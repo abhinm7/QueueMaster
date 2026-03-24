@@ -18,11 +18,11 @@ export const CreateTaskModal = ({ onClose, onSuccess }: Props) => {
     setLoading(true);
 
     try {
-      // Validate JSON before sending to backend
+      // Validate JSON 
       const payload = JSON.parse(payloadStr); 
       await apiClient.post('/tasks', { type, payload });
       toast.success('Task successfully queued!');
-      onSuccess(); // Triggers a refetch on the dashboard
+      onSuccess();
       onClose();
     } catch (err: any) {
       if (err instanceof SyntaxError) {

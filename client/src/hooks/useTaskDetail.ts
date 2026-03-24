@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Task } from "./useTasks";
 import { apiClient } from "../api/client";
-import { toast } from "sonner";
 
 export interface TaskDetail extends Task {
     payload: any;
