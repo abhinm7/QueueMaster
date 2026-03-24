@@ -24,7 +24,6 @@ import { AuthModule } from './auth/auth.module';
         url: config.get<string>('DATABASE_URL'),
         autoLoadEntities: true,
         synchronize: true,
-        ssl: { rejectUnauthorized: false },
       }),
     }),
     // redis connection via BullMQ
@@ -37,9 +36,6 @@ import { AuthModule } from './auth/auth.module';
           connection: {
             host: redisUrl.hostname,
             port: Number(redisUrl.port),
-            password: redisUrl.password || undefined,
-            db: Number(redisUrl.pathname.replace('/', '')) || 1,
-            tls: redisUrl.protocol === 'rediss:' ? {} : undefined,
           }
         }
       }
