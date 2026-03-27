@@ -37,10 +37,10 @@ export class TasksService {
         const task = await this.taskRepository.findOne({ where: { id, user: { id: userId } } });
         if (!task) throw new NotFoundException('Task not found');
 
-        return { taskId: task.id, status: task.status, result: task.result, type: task.type };
+        return { taskId: task.id, status: task.status, result: task.result, type: task.type, payload:task.payload };
     }
 
-    async getUserTasks(userId: string, filterDto: GetTasksFilterDto) {
+    async getUserTasks(userId: string, filterDto: GetTasksFilterDto) { 
         const { page = 1, limit = 10 } = filterDto;
         const skip = (page - 1) * limit;
 

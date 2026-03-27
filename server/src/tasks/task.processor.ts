@@ -15,7 +15,6 @@ export class TaskProcessor extends WorkerHost {
     ) {
         super();
     }
-
     async process(job: Job<{ taskId: string }>): Promise<any> {
         const { taskId } = job.data;
         this.logger.log(`Worker picked up task: ${taskId}`);

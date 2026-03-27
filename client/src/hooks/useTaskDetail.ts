@@ -24,6 +24,7 @@ export const useTaskDetail = (taskId: string | null) => {
             if (!isMounted) return;
             try {
                 const { data } = await apiClient.get(`/tasks/${taskId}`);
+                console.log("data:",data)
                 setTask(data);
 
                 if (data.status == 'COMPLETED' || data.status === 'FAILED') {

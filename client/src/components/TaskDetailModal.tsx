@@ -42,7 +42,7 @@ export const TaskDetailModal = ({ taskId, onClose }: Props) => {
 
               <div>
                 <span className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2 block">Input Payload</span>
-                <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                <pre className=" p-4 rounded-lg font-mono text-sm overflow-x-auto">
                   {JSON.stringify(task.payload, null, 2)}
                 </pre>
               </div>
